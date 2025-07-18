@@ -26,7 +26,7 @@ class AdminController extends Controller
             'custom_revenue' => Order::where('order_type', 'custom')->where('status', '!=', 'cancelled')->sum('total_amount'),
             'recent_orders' => Order::with('user')->latest()->take(5)->get(),
             'recent_custom_orders' => Order::with('user', 'orderItems')->where('order_type', 'custom')->latest()->take(3)->get(),
-            'low_stock_products' => Product::where('stock', '<=', 10)->take(5)->get(),
+            'low_stock_products' => Product::where('stock', '<=', 10)->where('name', '!=', 'Custom T-Shirt')->take(5)->get(),
         ];
 
         return Inertia::render('Admin/Dashboard', [

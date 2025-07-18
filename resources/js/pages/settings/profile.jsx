@@ -7,15 +7,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
-
-const breadcrumbs = [
-    {
-        title: 'Profile settings',
-        href: '/settings/profile',
-    },
-];
+import { AppShell } from '@/components/app-shell';
 
 export default function Profile({ mustVerifyEmail, status }) {
     const { auth } = usePage().props;
@@ -34,14 +26,21 @@ export default function Profile({ mustVerifyEmail, status }) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppShell>
             <Head title="Profile settings" />
 
-            <SettingsLayout>
-                <div className="space-y-6">
-                    <HeadingSmall title="Profile information" description="Update your name and email address" />
+            <div className="container mx-auto px-4 py-8 max-w-4xl">
+                {/* Page Header */}
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
+                    <p className="text-gray-600">Manage your profile and account settings</p>
+                </div>
 
-                    <form onSubmit={submit} className="space-y-6">
+                <div className="bg-white rounded-lg shadow-sm border p-6">
+                    <div className="space-y-6">
+                        <HeadingSmall title="Profile information" description="Update your name and email address" />
+
+                        <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
                             <Label htmlFor="name">Name</Label>
 
@@ -110,11 +109,14 @@ export default function Profile({ mustVerifyEmail, status }) {
                                 <p className="text-sm text-neutral-600">Saved</p>
                             </Transition>
                         </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
 
-                <DeleteUser />
-            </SettingsLayout>
-        </AppLayout>
+                <div className="mt-8">
+                    <DeleteUser />
+                </div>
+            </div>
+        </AppShell>
     );
 }

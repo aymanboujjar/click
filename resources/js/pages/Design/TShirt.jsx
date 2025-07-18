@@ -109,12 +109,12 @@ export default function TShirtDesign() {
                                                     />
                                                     {/* Design Preview */}
                                                     {designPreview && selectedColor === 'white' && (
-                                                        <div className="absolute inset-6 flex items-center justify-center">
-                                                            <div className="bg-white/95 rounded-lg p-2 shadow-xl border border-gray-200">
+                                                        <div className="absolute inset-8 flex items-center justify-center">
+                                                            <div className="bg-white/90 rounded-lg p-1 shadow-lg">
                                                                 <img
                                                                     src={designPreview}
                                                                     alt="Design preview"
-                                                                    className="w-24 h-24 object-contain"
+                                                                    className="w-16 h-16 object-contain"
                                                                 />
                                                             </div>
                                                         </div>
@@ -149,12 +149,12 @@ export default function TShirtDesign() {
                                                     />
                                                     {/* Design Preview */}
                                                     {designPreview && selectedColor === 'black' && (
-                                                        <div className="absolute inset-6 flex items-center justify-center">
-                                                            <div className="bg-white/95 rounded-lg p-2 shadow-xl border border-gray-200">
+                                                        <div className="absolute inset-8 flex items-center justify-center">
+                                                            <div className="bg-white/90 rounded-lg p-1 shadow-lg">
                                                                 <img
                                                                     src={designPreview}
                                                                     alt="Design preview"
-                                                                    className="w-24 h-24 object-contain"
+                                                                    className="w-16 h-16 object-contain"
                                                                 />
                                                             </div>
                                                         </div>

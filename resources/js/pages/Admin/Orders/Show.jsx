@@ -122,7 +122,7 @@ export default function AdminOrderShow({ order }) {
                                         <div key={item.id} className={`flex items-center gap-4 p-4 border rounded-lg ${
                                             item.is_custom ? 'border-orange-200 bg-orange-25' : ''
                                         }`}>
-                                            <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative border border-gray-200">
+                                            <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
                                                 {item.is_custom ? (
                                                     <>
                                                         {/* T-shirt base */}
@@ -131,22 +131,16 @@ export default function AdminOrderShow({ order }) {
                                                             alt={`${item.custom_color} T-shirt`}
                                                             className="w-full h-full object-cover"
                                                         />
-                                                        {/* Custom design overlay - larger and clearer for admin */}
+                                                        {/* Custom design overlay */}
                                                         {item.custom_design_path && (
-                                                            <div className="absolute inset-2 bg-white/95 rounded flex items-center justify-center shadow-lg border border-gray-200">
+                                                            <div className="absolute inset-1 bg-white/80 rounded flex items-center justify-center">
                                                                 <img
                                                                     src={`/storage/${item.custom_design_path}`}
                                                                     alt="Custom Design"
-                                                                    className="max-w-full max-h-full object-contain cursor-pointer"
-                                                                    onClick={() => window.open(`/storage/${item.custom_design_path}`, '_blank')}
-                                                                    title="Click to view full size"
+                                                                    className="max-w-full max-h-full object-contain"
                                                                 />
                                                             </div>
                                                         )}
-                                                        {/* Custom indicator */}
-                                                        <div className="absolute top-1 right-1 bg-orange-500 text-white text-xs px-1 py-0.5 rounded">
-                                                            🎨
-                                                        </div>
                                                     </>
                                                 ) : item.product_image ? (
                                                     <img

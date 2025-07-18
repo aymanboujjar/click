@@ -1,6 +1,5 @@
 import InputError from '@/components/input-error';
-import AppLayout from '@/layouts/app-layout';
-import SettingsLayout from '@/layouts/settings/layout';
+import { AppShell } from '@/components/app-shell';
 import { Transition } from '@headlessui/react';
 import { Head, useForm } from '@inertiajs/react';
 import { useRef } from 'react';
@@ -9,13 +8,6 @@ import HeadingSmall from '@/components/heading-small';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
-const breadcrumbs = [
-    {
-        title: 'Password settings',
-        href: '/settings/password',
-    },
-];
 
 export default function Password() {
     const passwordInput = useRef(null);
@@ -48,12 +40,19 @@ export default function Password() {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppShell>
             <Head title="Password settings" />
 
-            <SettingsLayout>
-                <div className="space-y-6">
-                    <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
+            <div className="container mx-auto px-4 py-8 max-w-4xl">
+                {/* Page Header */}
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
+                    <p className="text-gray-600">Manage your profile and account settings</p>
+                </div>
+
+                <div className="bg-white rounded-lg shadow-sm border p-6">
+                    <div className="space-y-6">
+                        <HeadingSmall title="Update password" description="Ensure your account is using a long, random password to stay secure" />
 
                     <form onSubmit={updatePassword} className="space-y-6">
                         <div className="grid gap-2">
@@ -121,7 +120,7 @@ export default function Password() {
                         </div>
                     </form>
                 </div>
-            </SettingsLayout>
-        </AppLayout>
+            </div>
+        </AppShell>
     );
 }

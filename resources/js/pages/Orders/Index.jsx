@@ -303,7 +303,7 @@ export default function OrdersIndex({ regularOrders, customOrders }) {
                                             <div className="space-y-4 mb-6">
                                                 {order.order_items.map((item) => (
                                                     <div key={item.id} className="flex items-center gap-4 p-4 bg-orange-25 rounded-lg border border-orange-100">
-                                                        <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative border border-gray-200">
+                                                        <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
                                                             {item.is_custom ? (
                                                                 <>
                                                                     {/* T-shirt base */}
@@ -312,9 +312,9 @@ export default function OrdersIndex({ regularOrders, customOrders }) {
                                                                         alt={`${item.custom_color} T-shirt`}
                                                                         className="w-full h-full object-cover"
                                                                     />
-                                                                    {/* Custom design overlay - clearer */}
+                                                                    {/* Custom design overlay */}
                                                                     {item.custom_design_path && (
-                                                                        <div className="absolute inset-2 bg-white/95 rounded flex items-center justify-center shadow-md border border-gray-200">
+                                                                        <div className="absolute inset-1 bg-white/80 rounded flex items-center justify-center">
                                                                             <img
                                                                                 src={`/storage/${item.custom_design_path}`}
                                                                                 alt="Custom Design"
@@ -322,10 +322,6 @@ export default function OrdersIndex({ regularOrders, customOrders }) {
                                                                             />
                                                                         </div>
                                                                     )}
-                                                                    {/* Custom indicator */}
-                                                                    <div className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
-                                                                        🎨
-                                                                    </div>
                                                                 </>
                                                             ) : (
                                                                 <img

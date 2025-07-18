@@ -7,7 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Search, Filter, Star, Heart, Eye } from 'lucide-react';
+import { ShoppingCart, Filter, Star, Heart, Eye } from 'lucide-react';
 
 export default function ProductsIndex({ products, categories, filters }) {
     const [searchTerm, setSearchTerm] = useState(filters.search || '');
@@ -62,7 +62,7 @@ export default function ProductsIndex({ products, categories, filters }) {
                     <div className="text-center max-w-4xl mx-auto">
                         <div className="mb-6">
                             <span className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
-                                🎨 Design & Shop
+                                🛍️ Shop & Discover
                             </span>
                         </div>
 
@@ -70,51 +70,26 @@ export default function ProductsIndex({ products, categories, filters }) {
                             Discover Amazing
                             <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent"> Products</span>
                             <br />
-                            <span className="text-2xl md:text-3xl text-gray-700">& Design Custom T-Shirts</span>
+                            <span className="text-2xl md:text-3xl text-gray-700">for Every Occasion</span>
                         </h1>
 
                         <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
-                            Shop premium quality items or create your own custom t-shirt designs
+                            Shop premium quality items from our curated collection of amazing products
                         </p>
 
                         {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                            <Link
-                                href={route('custom.tshirt')}
-                                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
-                            >
-                                🎽 Design Custom T-Shirt
-                            </Link>
+                        <div className="flex justify-center gap-4 mb-8">
                             <button
-                                className="inline-flex items-center justify-center px-8 py-4 border-2 border-gray-300 hover:border-orange-500 hover:bg-orange-50 text-gray-900 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
+                                className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
                                 onClick={() => document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' })}
                             >
                                 Browse Products
                             </button>
-                        </div>
-
-                        {/* Quick Search */}
-                        <div className="max-w-xl mx-auto">
-                            <div className="relative group">
-                                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
-                                <div className="relative bg-white rounded-xl shadow-lg border border-gray-200">
-                                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                                    <Input
-                                        type="text"
-                                        placeholder="Search products..."
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                        className="pl-12 pr-28 py-8 border-0 rounded-xl focus:ring-2 focus:ring-orange-500 bg-transparent text-base"
-                                        onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                                    />
-                                    <button
-                                        onClick={handleSearch}
-                                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
-                                    >
-                                        Search
-                                    </button>
-                                </div>
-                            </div>
+                            <Link href={route('custom.tshirt')}>
+                                <button className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg">
+                                    Custom Your T-Shirt
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -127,92 +102,7 @@ export default function ProductsIndex({ products, categories, filters }) {
 
             <div id="products-section" className="container mx-auto px-6 py-8">
                 {/* Filter Bar */}
-                <div className="bg-white rounded-xl shadow-sm border p-6 mb-8 mx-4 md:mx-0">
-                    <div className="flex flex-wrap items-center gap-4">
-                        <div className="flex items-center gap-2">
-                            <Filter className="h-4 w-4 text-orange-500" />
-                            <span className="font-medium text-gray-900">Filters:</span>
-                        </div>
-
-                        {/* Custom T-Shirt Quick Access */}
-                        <div className="hidden sm:flex items-center gap-2 ml-auto">
-                            <Link
-                                href={route('custom.tshirt')}
-                                className="inline-flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
-                            >
-                                🎨 Design your  T-Shirt
-                            </Link>
-                        </div>
-
-                        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                            <SelectTrigger className="w-48">
-                                <SelectValue placeholder="All Categories" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Categories</SelectItem>
-                                {categories.map((category) => (
-                                    <SelectItem key={category.id} value={category.id.toString()}>
-                                        {category.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-
-                        <div className="flex items-center gap-2">
-                            <Input
-                                type="number"
-                                placeholder="Min Price"
-                                value={minPrice}
-                                onChange={(e) => setMinPrice(e.target.value)}
-                                className="w-32"
-                            />
-                            <span className="text-gray-400">-</span>
-                            <Input
-                                type="number"
-                                placeholder="Max Price"
-                                value={maxPrice}
-                                onChange={(e) => setMaxPrice(e.target.value)}
-                                className="w-32"
-                            />
-                        </div>
-
-                        <Select value={`${sortBy}-${sortOrder}`} onValueChange={(value) => {
-                            const [field, order] = value.split('-');
-                            setSortBy(field);
-                            setSortOrder(order);
-                        }}>
-                            <SelectTrigger className="w-48">
-                                <SelectValue placeholder="Sort by" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="created_at-desc">Newest First</SelectItem>
-                                <SelectItem value="created_at-asc">Oldest First</SelectItem>
-                                <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                                <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                                <SelectItem value="name-asc">Name: A to Z</SelectItem>
-                                <SelectItem value="name-desc">Name: Z to A</SelectItem>
-                            </SelectContent>
-                        </Select>
-
-                        <div className="flex gap-2">
-                            <Button
-                                onClick={handleSearch}
-                                size="sm"
-                                className="bg-orange-500 hover:bg-orange-600 text-white"
-                            >
-                                Apply
-                            </Button>
-                            <Button
-                                variant="outline"
-                                onClick={clearFilters}
-                                size="sm"
-                                className="border-gray-300 hover:border-orange-500 hover:bg-orange-50 text-gray-900"
-                            >
-                                Clear
-                            </Button>
-                        </div>
-                    </div>
-                </div>
+            
 
                 {/* Products Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 md:px-0">
@@ -262,13 +152,7 @@ export default function ProductsIndex({ products, categories, filters }) {
                                                     <Eye className="h-4 w-4" />
                                                 </Link>
                                             </Button>
-                                            <Button
-                                                size="sm"
-                                                variant="secondary"
-                                                className="rounded-full w-10 h-10 p-0 bg-white/90 hover:bg-white"
-                                            >
-                                                <Heart className="h-4 w-4" />
-                                            </Button>
+                                      
                                         </div>
                                     </div>
                                 </div>

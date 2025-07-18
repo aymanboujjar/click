@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
-import { ImageModal } from '@/components/image-modal';
 import { ShoppingCart, Trash2, Plus, Minus, ArrowRight } from 'lucide-react';
 
 export default function CartIndex({ cartItems, total, auth }) {
@@ -98,7 +97,7 @@ export default function CartIndex({ cartItems, total, auth }) {
                                     <CardContent className="p-6">
                                         <div className="flex gap-4">
                                             {/* Product Image */}
-                                            <div className="w-32 h-32 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative border border-gray-200">
+                                            <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
                                                 {item.is_custom ? (
                                                     <>
                                                         {/* T-shirt base image */}
@@ -107,25 +106,16 @@ export default function CartIndex({ cartItems, total, auth }) {
                                                             alt={`${item.custom_color} T-shirt`}
                                                             className="w-full h-full object-cover"
                                                         />
-                                                        {/* Custom design overlay - larger and clearer */}
+                                                        {/* Custom design overlay */}
                                                         {item.custom_design_path && (
-                                                            <ImageModal
-                                                                src={`/storage/${item.custom_design_path}`}
-                                                                alt={`Custom Design for ${item.custom_color} T-shirt`}
-                                                            >
-                                                                <div className="absolute inset-3 bg-white/95 rounded-md flex items-center justify-center shadow-lg border border-gray-200 hover:bg-white transition-colors">
-                                                                    <img
-                                                                        src={`/storage/${item.custom_design_path}`}
-                                                                        alt="Custom Design"
-                                                                        className="max-w-full max-h-full object-contain"
-                                                                    />
-                                                                </div>
-                                                            </ImageModal>
+                                                            <div className="absolute inset-2 bg-white/80 rounded flex items-center justify-center">
+                                                                <img
+                                                                    src={`/storage/${item.custom_design_path}`}
+                                                                    alt="Custom Design"
+                                                                    className="max-w-full max-h-full object-contain"
+                                                                />
+                                                            </div>
                                                         )}
-                                                        {/* Custom design indicator */}
-                                                        <div className="absolute top-1 right-1 bg-orange-500 text-white text-xs px-1 py-0.5 rounded">
-                                                            🎨
-                                                        </div>
                                                     </>
                                                 ) : item.product.image ? (
                                                     <img

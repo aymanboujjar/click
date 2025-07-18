@@ -24,6 +24,7 @@ class DashboardController extends Controller
 
         $featuredProducts = Product::with('category')
                                   ->where('stock', '>', 0)
+                                  ->where('name', '!=', 'Custom T-Shirt')
                                   ->latest()
                                   ->take(8)
                                   ->get();

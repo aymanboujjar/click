@@ -16,13 +16,17 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::with('category')
-            ->where('name', '!=', 'Custom T-Shirt'); // Exclude the base custom t-shirt product
+        $query = Product::with('category');
+
+        // Exclude custom t-shirt from product listings
+        $query->where('name', '!=', 'Custom T-Shirt');
 
         // Search functionality
         if ($request->has('search') && $request->search) {
-            $query->where('name', 'like', '%' . $request->search . '%')
+            $query->where(function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
                   ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
         }
 
         // Category filter

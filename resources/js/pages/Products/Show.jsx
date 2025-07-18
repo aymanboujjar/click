@@ -3,9 +3,10 @@ import { Head, Link, router } from '@inertiajs/react';
 import { route } from 'ziggy-js';
 import { AppShell } from '@/components/app-shell';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, ArrowLeft, Plus, Minus, Star, LoaderCircle, Bell, Truck } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, Plus, Minus, Star, Heart, Share2, LoaderCircle, Bell, Truck } from 'lucide-react';
 
 export default function ProductShow({ product }) {
     const [quantity, setQuantity] = useState(1);
@@ -91,29 +92,7 @@ export default function ProductShow({ product }) {
                                                 </div>
                                             )}
 
-                                            {/* Overlay Actions */}
-                                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300">
-                                                {/* Status Badges */}
-                                                <div className="absolute top-6 right-6 flex flex-col gap-2">
-                                                    {product.stock <= 10 && product.stock > 0 && (
-                                                        <Badge className="shadow-lg px-3 py-2 text-sm font-medium backdrop-blur-sm bg-orange-600 hover:bg-orange-700 text-white border-0">
-                                                            ⚠️ Low Stock
-                                                        </Badge>
-                                                    )}
-                                                    {product.stock === 0 && (
-                                                        <Badge className="shadow-lg px-3 py-2 text-sm font-medium backdrop-blur-sm bg-gray-600 text-white border-0">
-                                                            ❌ Out of Stock
-                                                        </Badge>
-                                                    )}
-                                                    {product.stock > 10 && (
-                                                        <Badge className="shadow-lg px-3 py-2 text-sm font-medium backdrop-blur-sm bg-orange-500 hover:bg-orange-600 text-white border-0">
-                                                            ✅ In Stock
-                                                        </Badge>
-                                                    )}
-                                                </div>
-
-
-                                            </div>
+                                        
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -151,7 +130,10 @@ export default function ProductShow({ product }) {
                                     <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-0 px-3 py-1">
                                         {product.category?.name || 'General'}
                                     </Badge>
-
+                              
+                                    <Badge className="bg-gray-900 text-white hover:bg-gray-800 border-0 px-3 py-1">
+                                        Premium Quality
+                                    </Badge>
 
                                 </div>
                                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
@@ -175,14 +157,8 @@ export default function ProductShow({ product }) {
                                     <span className="text-gray-900 font-semibold text-lg">4.8</span>
                                     <span className="text-gray-600">(128 reviews)</span>
                                 </div>
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <Truck className="h-4 w-4 text-orange-500" />
-                                    <span>Fast delivery available</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <span>🔥</span>
-                                    <span>15 sold in last 24h</span>
-                                </div>
+                               
+                             
                             </div>
 
                             {/* Pricing Section */}
@@ -194,35 +170,12 @@ export default function ProductShow({ product }) {
                                     <span className="text-2xl text-gray-500 line-through">
                                         {(product.price * 1.25).toFixed(2)} DH
                                     </span>
-                                    <Badge className="px-3 py-2 text-sm font-semibold bg-orange-500 hover:bg-orange-600 text-white border-0">
-                                        20% OFF
-                                    </Badge>
+                                
                                 </div>
-
+                               
                             </div>
 
-                            {/* Stock & Availability */}
-                            <div className="space-y-4">
-                                <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                                    <div className="flex items-center gap-3">
-                                        <div className={`w-4 h-4 rounded-full ${product.stock > 10 ? 'bg-orange-500' : product.stock > 0 ? 'bg-yellow-500' : 'bg-red-500'}`}></div>
-                                        <div>
-                                            <span className="font-semibold text-gray-900">
-                                                {product.stock > 10 ? '✅ In Stock' : product.stock > 0 ? '⚠️ Low Stock' : '❌ Out of Stock'}
-                                            </span>
-                                            <p className="text-sm text-gray-600">
-                                                {product.stock} units available
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {product.stock > 0 && (
-                                        <div className="text-right">
-                                            <p className="text-sm text-orange-600 font-medium">Ready to ship</p>
-                                            <p className="text-xs text-gray-500">Delivery in 2-3 days</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                       
                         </div>
 
                         {/* Purchase Section */}
@@ -285,7 +238,6 @@ export default function ProductShow({ product }) {
                                         )}
                                     </Button>
 
-
                                 </div>
                             </div>
                         ) : (
@@ -297,10 +249,7 @@ export default function ProductShow({ product }) {
                                     <Button disabled size="lg" className="w-full py-4 text-lg rounded-xl bg-gray-200 text-gray-500">
                                         Out of Stock
                                     </Button>
-                                    <Button variant="outline" size="lg" className="w-full py-3 rounded-xl border-gray-300 text-gray-900 hover:bg-gray-100">
-                                        <Bell className="h-5 w-5 mr-2" />
-                                        Notify When Available
-                                    </Button>
+                            
                                 </div>
                             </div>
                         )}

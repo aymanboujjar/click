@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 import {
     ShoppingCart,
     User,
@@ -10,7 +11,8 @@ import {
     Package,
     History,
     LogOut,
-    Settings
+    Settings,
+    ChevronDown
 } from 'lucide-react';
 
 export function Navbar() {
@@ -87,28 +89,87 @@ export function Navbar() {
                                         </Link>
                                     )}
 
-                                    {/* <div className="flex items-center space-x-2">
-                                        <User className="h-4 w-4 text-gray-600" />
-                                        <span className="text-sm text-gray-700">{auth.user.name}</span>
-                                    </div> */}
+                                    {/* User Dropdown Menu */}
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                                                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                                    {auth.user.name.charAt(0).toUpperCase()}
+                                                </div>
+                                                <span className="text-sm text-gray-700">{auth.user.name}</span>
+                                                <ChevronDown className="h-4 w-4 text-gray-500" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end" className="w-80 p-2">
+                                            {/* User Info Card */}
+                                            <div className="p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg mb-2">
+                                                <div className="flex items-center space-x-3">
+                                                    <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-white text-lg font-medium">
+                                                        {auth.user.name.charAt(0).toUpperCase()}
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-medium text-gray-900">{auth.user.name}</p>
+                                                        <p className="text-sm text-gray-600">{auth.user.email}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                    <div className="flex items-center space-x-2">
-                                        {/* <Link href={route('dashboard')}>
-                                            <Button variant="ghost" size="sm">
-                                                Dashboard
-                                            </Button>
-                                        </Link> */}
-                                        <Link href={route('orders.index')}>
-                                            <Button variant="ghost" size="sm">
-                                                <History className="h-4 w-4 mr-1" />
-                                                Orders
-                                            </Button>
-                                        </Link>
-                                        <Button variant="ghost" size="sm" onClick={logout}>
-                                            <LogOut className="h-4 w-4 mr-1" />
-                                            Logout
-                                        </Button>
-                                    </div>
+                                            <DropdownMenuSeparator />
+
+                                            {/* Orders Card */}
+                                            <DropdownMenuItem asChild className="p-0">
+                                                <Link href={route('orders.index')} className="block">
+                                                    <div className="p-4 hover:bg-gray-50 rounded-lg transition-colors">
+                                                        <div className="flex items-center space-x-3">
+                                                            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                                                <History className="h-5 w-5 text-blue-600" />
+                                                            </div>
+                                                            <div>
+                                                                <p className="font-medium text-gray-900">Orders</p>
+                                                                <p className="text-sm text-gray-600">View your order history</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </DropdownMenuItem>
+
+                                            {/* Settings Card */}
+                                            {/* <DropdownMenuItem asChild className="p-0">
+                                                <Link href={route('profile.edit')} className="block">
+                                                    <div className="p-4 hover:bg-gray-50 rounded-lg transition-colors">
+                                                        <div className="flex items-center space-x-3">
+                                                            <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                                                <Settings className="h-5 w-5 text-green-600" />
+                                                            </div>
+                                                            <div>
+                                                                <p className="font-medium text-gray-900">Settings</p>
+                                                                <p className="text-sm text-gray-600">Manage your profile and account</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </DropdownMenuItem> */}
+
+                                            <DropdownMenuSeparator />
+
+                                            {/* Logout Card */}
+                                            <DropdownMenuItem asChild className="p-0">
+                                                <button onClick={logout} className="w-full">
+                                                    <div className="p-4 hover:bg-red-50 rounded-lg transition-colors">
+                                                        <div className="flex items-center space-x-3">
+                                                            <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                                                <LogOut className="h-5 w-5 text-red-600" />
+                                                            </div>
+                                                            <div className="text-left">
+                                                                <p className="font-medium text-gray-900">Logout</p>
+                                                                <p className="text-sm text-gray-600">Sign out of your account</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
                                 </div>
                             </div>
                         ) : (
