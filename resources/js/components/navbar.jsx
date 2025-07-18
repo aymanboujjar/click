@@ -180,7 +180,7 @@ export function Navbar() {
                                     </Button>
                                 </Link>
                                 <Link href={route('register')}>
-                                    <Button size="sm">
+                                    <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
                                         Register
                                     </Button>
                                 </Link>
@@ -272,7 +272,7 @@ export function Navbar() {
                                     </Link>
                                     <Link
                                         href={route('register')}
-                                        className="block text-center py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                                        className="block text-center py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
                                         Register
