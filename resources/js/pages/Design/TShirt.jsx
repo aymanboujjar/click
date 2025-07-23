@@ -110,7 +110,7 @@ export default function TShirtDesign() {
                                                     {/* Design Preview */}
                                                     {designPreview && selectedColor === 'white' && (
                                                         <div className="absolute inset-8 flex items-center justify-center">
-                                                            <div className="bg-white/90 rounded-lg p-1 shadow-lg">
+                                                            <div className=" rounded-lg p-1">
                                                                 <img
                                                                     src={designPreview}
                                                                     alt="Design preview"
@@ -150,7 +150,7 @@ export default function TShirtDesign() {
                                                     {/* Design Preview */}
                                                     {designPreview && selectedColor === 'black' && (
                                                         <div className="absolute inset-8 flex items-center justify-center">
-                                                            <div className="bg-white/90 rounded-lg p-1 shadow-lg">
+                                                            <div className="rounded-lg p-1">
                                                                 <img
                                                                     src={designPreview}
                                                                     alt="Design preview"

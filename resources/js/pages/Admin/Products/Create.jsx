@@ -29,7 +29,7 @@ export default function AdminProductCreate({ categories }) {
 
             <div className="container flex flex-col items-center justify-center w-full  px-4 py-8">
                 {/* Breadcrumb */}
-                <div className="mb-6">
+                <div className="mb-6 flex items-center justify-start w-full">
                     <Link
                         href={route('admin.products.index')}
                         className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
@@ -39,12 +39,12 @@ export default function AdminProductCreate({ categories }) {
                     </Link>
                 </div>
 
-                <div className="mb-8">
+                {/* <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Product</h1>
                     <p className="text-gray-600">Create a new product for your store</p>
-                </div>
+                </div> */}
 
-                <Card className="max-w-2xl">
+                <Card className="w-full">
                     <CardHeader>
                         <CardTitle>Product Information</CardTitle>
                     </CardHeader>
