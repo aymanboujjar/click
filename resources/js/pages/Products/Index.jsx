@@ -7,7 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Filter, Star, Heart, Eye, Truck } from 'lucide-react';
+import { ShoppingCart, Filter, Star, Heart, Eye } from 'lucide-react';
 
 export default function ProductsIndex({ products, categories, filters }) {
     const [searchTerm, setSearchTerm] = useState(filters.search || '');
@@ -85,12 +85,7 @@ export default function ProductsIndex({ products, categories, filters }) {
                             >
                                 Browse Products
                             </button>
-                            <Link href={route('custom.tshirt')}>
-                                <button className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg">
-                                    Custom Your T-Shirt
-                                </button>
-                            </Link>
-                        </div>
+                                                    </div>
                     </div>
                 </div>
 
