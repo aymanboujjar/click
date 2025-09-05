@@ -7,7 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Filter, Star, Heart, Eye } from 'lucide-react';
+import { ShoppingCart, Filter, Star, Heart, Eye, Truck } from 'lucide-react';
 
 export default function ProductsIndex({ products, categories, filters }) {
     const [searchTerm, setSearchTerm] = useState(filters.search || '');
@@ -125,6 +125,13 @@ export default function ProductsIndex({ products, categories, filters }) {
                                         </div>
                                     )}
 
+                                    {/* Free Shipping Badge */}
+                                    <div className="absolute top-3 left-3">
+                                        <Badge className="bg-green-500 text-white border-0 shadow-lg">
+                                            Free Shipping
+                                        </Badge>
+                                    </div>
+
                                     {/* Status Badges */}
                                     <div className="absolute top-3 right-3 flex flex-col gap-2">
                                         {product.stock <= 10 && product.stock > 0 && (
@@ -160,10 +167,7 @@ export default function ProductsIndex({ products, categories, filters }) {
 
                             <CardContent className="p-6">
                                 <div className="mb-3">
-                                    <Badge variant="outline" className="text-xs mb-2">
-                                        {product.category.name}
-                                    </Badge>
-                                    <CardTitle className="text-lg font-bold mb-2 line-clamp-1">
+                                                                        <CardTitle className="text-lg font-bold mb-2 line-clamp-1">
                                         <Link
                                             href={route('products.show', product.id)}
                                             className="hover:text-blue-600 transition-colors"

@@ -19,11 +19,11 @@ export default function AuthSimpleLayout({ children, title, description }: Props
             <div className="absolute top-1/2 right-12 w-8 h-8 bg-orange-300 rounded-full opacity-30 animate-pulse delay-500"></div>
             <div className="absolute bottom-1/4 left-12 w-10 h-10 bg-orange-100 rounded-full opacity-40 animate-pulse delay-700"></div>
 
-            <div className="relative flex min-h-screen flex-col items-center justify-center p-6 md:p-10">
+            <div className="relative flex min-h-screen flex-col items-center justify-center p-6 md:p-6">
                 <div className="w-full max-w-md">
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-1">
                         {/* Logo and Branding */}
-                        <div className="flex flex-col items-center gap-6">
+                        <div className="flex flex-col items-center">
                             <Link href={route('home')} className="flex flex-col items-center gap-3 font-medium group transition-transform hover:scale-105">
                                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl  shadow-xl group-hover:shadow-2xl transition-all duration-300 p-2">
                                     <img
@@ -44,7 +44,7 @@ export default function AuthSimpleLayout({ children, title, description }: Props
                         </div>
 
                         {/* Auth Form Card */}
-                        <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-white/50 shadow-2xl p-8 transition-all duration-300 hover:shadow-3xl">
+                        <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-white/50 shadow-2xl p-6 transition-all duration-300 hover:shadow-3xl">
                             {children}
                         </div>
                     </div>

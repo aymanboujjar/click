@@ -29,10 +29,10 @@ export default function Register() {
     }, [post, reset]);
 
     return (
-        <AuthLayout title="Join CLICKTEE" description="Create your account to start shopping for amazing products">
+        <AuthLayout >
             <Head title="Register" />
-            <form className="flex flex-col gap-6" onSubmit={submit}>
-                <div className="space-y-6">
+            <form className="flex flex-col" onSubmit={submit}>
+                <div className="space-y-4">
                     <div className="space-y-2">
                         <Label htmlFor="name" className="text-sm font-semibold text-gray-900">Full Name</Label>
                         <div className="relative">
@@ -110,41 +110,7 @@ export default function Register() {
                         <InputError message={errors.password_confirmation} />
                     </div>
 
-                    <div className="space-y-2">
-                        <Label htmlFor="phone" className="text-sm font-semibold text-gray-900">Phone Number <span className="text-gray-500 font-normal">(Optional)</span></Label>
-                        <div className="relative">
-                            <Input
-                                id="phone"
-                                type="tel"
-                                tabIndex={5}
-                                autoComplete="tel"
-                                value={data.phone}
-                                onChange={(e) => setData('phone', e.target.value)}
-                                disabled={processing}
-                                placeholder="Enter your phone number"
-                                className="h-14 px-4 text-base border-2 border-gray-200 rounded-2xl focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80"
-                            />
-                        </div>
-                        <InputError message={errors.phone} />
-                    </div>
 
-                    <div className="space-y-2">
-                        <Label htmlFor="address" className="text-sm font-semibold text-gray-900">Address <span className="text-gray-500 font-normal">(Optional)</span></Label>
-                        <div className="relative">
-                            <Input
-                                id="address"
-                                type="text"
-                                tabIndex={6}
-                                autoComplete="street-address"
-                                value={data.address}
-                                onChange={(e) => setData('address', e.target.value)}
-                                disabled={processing}
-                                placeholder="Enter your address"
-                                className="h-14 px-4 text-base border-2 border-gray-200 rounded-2xl focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80"
-                            />
-                        </div>
-                        <InputError message={errors.address} />
-                    </div>
 
                     <Button
                         type="submit"

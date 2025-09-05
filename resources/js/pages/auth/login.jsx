@@ -25,7 +25,7 @@ export default function Login({ status, canResetPassword }) {
     }, [post, reset]);
 
     return (
-        <AuthLayout title="Welcome back" description="Sign in to your CLICKTEE account to continue shopping">
+        <AuthLayout  >
             <Head title="Log in" />
 
             {status && <div className="mb-6 text-center text-sm font-medium text-green-600 bg-green-50 border border-green-200 rounded-2xl p-4">{status}</div>}
