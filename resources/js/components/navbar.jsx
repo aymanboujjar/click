@@ -96,7 +96,7 @@ export function Navbar() {
                                                 <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
                                                     {auth.user.name.charAt(0).toUpperCase()}
                                                 </div>
-                                                <span className="text-sm text-gray-700">{auth.user.name}</span>
+                                                {/* <span className="text-sm text-gray-700">{auth.user.name}</span> */}
                                                 <ChevronDown className="h-4 w-4 text-gray-500" />
                                             </Button>
                                         </DropdownMenuTrigger>
