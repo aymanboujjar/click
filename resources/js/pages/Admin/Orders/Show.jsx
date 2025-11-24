@@ -131,13 +131,23 @@ export default function AdminOrderShow({ order }) {
                                                             alt={`${item.custom_color} T-shirt`}
                                                             className="w-full h-full object-cover"
                                                         />
-                                                        {/* Custom design overlay */}
+                                                        {/* Custom design overlay with adjustments */}
                                                         {item.custom_design_path && (
-                                                            <div className="absolute inset-1 bg-white/80 rounded flex items-center justify-center">
+                                                            <div 
+                                                                className="absolute"
+                                                                style={{
+                                                                    top: `${item.design_position_y ?? 50}%`,
+                                                                    left: `${item.design_position_x ?? 50}%`,
+                                                                    transform: `translate(-50%, -50%) scale(${0.5 + ((item.design_scale ?? 50) / 100)}) rotate(${item.design_rotation ?? 0}deg)`,
+                                                                    transformOrigin: 'center center',
+                                                                    maxWidth: '60%',
+                                                                    maxHeight: '60%',
+                                                                }}
+                                                            >
                                                                 <img
                                                                     src={`/storage/${item.custom_design_path}`}
                                                                     alt="Custom Design"
-                                                                    className="max-w-full max-h-full object-contain"
+                                                                    className="max-w-full max-h-full object-contain drop-shadow-lg"
                                                                 />
                                                             </div>
                                                         )}
@@ -162,10 +172,18 @@ export default function AdminOrderShow({ order }) {
                                                     Quantity: {item.quantity} × {item.price} DH
                                                 </p>
                                                 {item.is_custom && (
-                                                    <div className="mt-1">
+                                                    <div className="mt-1 space-y-1">
                                                         <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
                                                             🎨 Custom Design • {item.custom_color} T-shirt
                                                         </span>
+                                                        {(item.design_position_x || item.design_position_y || item.design_scale || item.design_rotation || item.design_placement) && (
+                                                            <div className="text-xs text-gray-500 mt-1">
+                                                                Placement: {item.design_placement ? item.design_placement.charAt(0).toUpperCase() + item.design_placement.slice(1) : 'Front'} | 
+                                                                Position: ({item.design_position_x ?? 50}%, {item.design_position_y ?? 50}%) | 
+                                                                Size: {Math.round((0.5 + ((item.design_scale ?? 50) / 100)) * 100)}% | 
+                                                                Rotation: {item.design_rotation ?? 0}°
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 )}
                                             </div>
@@ -218,27 +236,140 @@ export default function AdminOrderShow({ order }) {
                     {/* Sidebar */}
                     <div className="space-y-6">
                         {/* Status Management */}
-                        <Card>
+                        <Card className="border-2 border-orange-200 bg-orange-50">
                             <CardHeader>
-                                <CardTitle>Order Status</CardTitle>
+                                <CardTitle className="flex items-center gap-2">
+                                    <Package className="h-5 w-5" />
+                                    Order Status
+                                </CardTitle>
                             </CardHeader>
                             <CardContent className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Update Status
+                                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                                        Current Status
                                     </label>
-                                    <Select value={order.status} onValueChange={updateStatus}>
-                                        <SelectTrigger>
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem value="pending">Pending</SelectItem>
-                                            <SelectItem value="confirmed">Confirmed</SelectItem>
-                                            <SelectItem value="shipped">Shipped</SelectItem>
-                                            <SelectItem value="delivered">Delivered</SelectItem>
-                                            <SelectItem value="cancelled">Cancelled</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    <div className="mb-4">
+                                        <Badge className={`${getStatusColor(order.status)} text-base px-4 py-2`}>
+                                            {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                        </Badge>
+                                    </div>
+                                    
+                                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                                        Change Status
+                                    </label>
+                                    
+                                    {/* Status Workflow Buttons */}
+                                    <div className="space-y-2">
+                                        {order.status === 'pending' && (
+                                            <>
+                                                <Button
+                                                    onClick={() => updateStatus('confirmed')}
+                                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                                                    size="lg"
+                                                >
+                                                    ✓ Confirm Order
+                                                </Button>
+                                                <Button
+                                                    variant="outline"
+                                                    onClick={() => updateStatus('cancelled')}
+                                                    className="w-full text-red-700 border-red-300 hover:bg-red-50"
+                                                    size="lg"
+                                                >
+                                                    ✕ Cancel Order
+                                                </Button>
+                                            </>
+                                        )}
+                                        
+                                        {order.status === 'confirmed' && (
+                                            <>
+                                                <Button
+                                                    onClick={() => updateStatus('shipped')}
+                                                    className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                                                    size="lg"
+                                                >
+                                                    🚚 Ship Order
+                                                </Button>
+                                                <Button
+                                                    variant="outline"
+                                                    onClick={() => updateStatus('cancelled')}
+                                                    className="w-full text-red-700 border-red-300 hover:bg-red-50"
+                                                    size="lg"
+                                                >
+                                                    ✕ Cancel Order
+                                                </Button>
+                                            </>
+                                        )}
+                                        
+                                        {order.status === 'shipped' && (
+                                            <>
+                                                <Button
+                                                    onClick={() => updateStatus('delivered')}
+                                                    className="w-full bg-green-600 hover:bg-green-700 text-white"
+                                                    size="lg"
+                                                >
+                                                    ✓ Mark as Delivered
+                                                </Button>
+                                                <Button
+                                                    variant="outline"
+                                                    onClick={() => updateStatus('cancelled')}
+                                                    className="w-full text-red-700 border-red-300 hover:bg-red-50"
+                                                    size="lg"
+                                                >
+                                                    ✕ Cancel Order
+                                                </Button>
+                                            </>
+                                        )}
+                                        
+                                        {order.status === 'delivered' && (
+                                            <div className="text-center py-2">
+                                                <p className="text-sm text-gray-600">Order has been delivered</p>
+                                                <Button
+                                                    variant="outline"
+                                                    onClick={() => updateStatus('cancelled')}
+                                                    className="mt-2 text-red-700 border-red-300 hover:bg-red-50"
+                                                    size="sm"
+                                                >
+                                                    Cancel Order
+                                                </Button>
+                                            </div>
+                                        )}
+                                        
+                                        {order.status === 'cancelled' && (
+                                            <div className="text-center py-2">
+                                                <p className="text-sm text-gray-600">Order has been cancelled</p>
+                                                <Button
+                                                    onClick={() => updateStatus('pending')}
+                                                    className="mt-2 bg-blue-600 hover:bg-blue-700 text-white"
+                                                    size="sm"
+                                                >
+                                                    Reactivate Order
+                                                </Button>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Advanced: Dropdown for manual status change */}
+                                    <div className="mt-4 pt-4 border-t">
+                                        <details className="group">
+                                            <summary className="cursor-pointer text-sm text-gray-600 hover:text-gray-900">
+                                                Advanced: Manual Status Change
+                                            </summary>
+                                            <div className="mt-2">
+                                                <Select value={order.status} onValueChange={updateStatus}>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="pending">Pending</SelectItem>
+                                                        <SelectItem value="confirmed">Confirmed</SelectItem>
+                                                        <SelectItem value="shipped">Shipped</SelectItem>
+                                                        <SelectItem value="delivered">Delivered</SelectItem>
+                                                        <SelectItem value="cancelled">Cancelled</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                        </details>
+                                    </div>
                                 </div>
                             </CardContent>
                         </Card>

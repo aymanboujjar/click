@@ -10,9 +10,12 @@ use App\Http\Controllers\DesignController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 // Public routes
-Route::get('/', [ProductController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return Inertia::render('Home');
+})->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');

@@ -178,7 +178,11 @@ export default function AdminOrdersIndex({ orders, filters, orderType = 'all' })
                                     </thead>
                                     <tbody>
                                         {orders.data.map((order) => (
-                                            <tr key={order.id} className="border-b hover:bg-gray-50">
+                                            <tr 
+                                                key={order.id} 
+                                                className="border-b hover:bg-gray-50 cursor-pointer transition-colors"
+                                                onClick={() => router.visit(route('admin.orders.show', order.id))}
+                                            >
                                                 <td className="py-4 px-4">
                                                     <div>
                                                         <p className={`font-medium ${order.order_type === 'custom' ? 'text-orange-700' : ''}`}>
@@ -220,7 +224,7 @@ export default function AdminOrdersIndex({ orders, filters, orderType = 'all' })
                                                         {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                                                     </Badge>
                                                 </td>
-                                                <td className="py-4 px-4">
+                                                <td className="py-4 px-4" onClick={(e) => e.stopPropagation()}>
                                                     <div className="flex items-center gap-2 justify-end">
                                                         <Link href={route('admin.orders.show', order.id)}>
                                                             <Button variant="ghost" size="sm">

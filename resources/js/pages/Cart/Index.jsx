@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
+import { TransText } from '@/components/TransText';
 import { ShoppingCart, Trash2, Plus, Minus, ArrowRight } from 'lucide-react';
 
 export default function CartIndex({ cartItems, total, auth }) {
@@ -65,12 +66,19 @@ export default function CartIndex({ cartItems, total, auth }) {
 
             <div className="container mx-auto px-4 py-8">
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Shopping Cart</h1>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                        <TransText en="Shopping Cart" fr="Panier d'Achat" ar="سلة التسوق" />
+                    </h1>
                     <p className="text-gray-600">
-                        {cartItems.length === 0
-                            ? 'Your cart is empty'
-                            : `${cartItems.length} item${cartItems.length !== 1 ? 's' : ''} in your cart`
-                        }
+                        {cartItems.length === 0 ? (
+                            <TransText en="Your cart is empty" fr="Votre panier est vide" ar="سلة التسوق فارغة" />
+                        ) : (
+                            <TransText 
+                                en={`${cartItems.length} item${cartItems.length !== 1 ? 's' : ''} in your cart`}
+                                fr={`${cartItems.length} article${cartItems.length !== 1 ? 's' : ''} dans votre panier`}
+                                ar={`${cartItems.length} ${cartItems.length !== 1 ? 'عناصر' : 'عنصر'} في سلة التسوق`}
+                            />
+                        )}
                     </p>
                 </div>
 
@@ -78,12 +86,20 @@ export default function CartIndex({ cartItems, total, auth }) {
                     <div className="text-center py-12">
                         <div className="mb-6">
                             <ShoppingCart className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-                            <h2 className="text-2xl font-semibold text-gray-600 mb-2">Your cart is empty</h2>
-                            <p className="text-gray-500">Start shopping to add items to your cart</p>
+                            <h2 className="text-2xl font-semibold text-gray-600 mb-2">
+                                <TransText en="Your cart is empty" fr="Votre panier est vide" ar="سلة التسوق فارغة" />
+                            </h2>
+                            <p className="text-gray-500">
+                                <TransText 
+                                    en="Start shopping to add items to your cart"
+                                    fr="Commencez à faire vos achats pour ajouter des articles à votre panier"
+                                    ar="ابدأ التسوق لإضافة عناصر إلى سلة التسوق"
+                                />
+                            </p>
                         </div>
                         <Link href={route('products.index')}>
                             <Button size="lg" className="flex items-center gap-2">
-                                Continue Shopping
+                                <TransText en="Continue Shopping" fr="Continuer les Achats" ar="متابعة التسوق" />
                                 <ArrowRight className="h-4 w-4" />
                             </Button>
                         </Link>
@@ -212,7 +228,8 @@ export default function CartIndex({ cartItems, total, auth }) {
                                                             } DH
                                                         </p>
                                                         <p className="text-sm text-gray-500">
-                                                            {item.is_custom ? item.custom_price : item.product.price} DH each
+                                                            {item.is_custom ? item.custom_price : item.product.price} DH{' '}
+                                                            <TransText en="each" fr="chacun" ar="لكل" />
                                                         </p>
                                                     </div>
                                                 </div>
@@ -220,7 +237,11 @@ export default function CartIndex({ cartItems, total, auth }) {
                                                 {/* Stock Warning */}
                                                 {item.quantity > item.product.stock && (
                                                     <p className="text-red-600 text-sm mt-2">
-                                                        Only {item.product.stock} items available
+                                                        <TransText 
+                                                            en={`Only ${item.product.stock} items available`}
+                                                            fr={`Seulement ${item.product.stock} articles disponibles`}
+                                                            ar={`${item.product.stock} عناصر متاحة فقط`}
+                                                        />
                                                     </p>
                                                 )}
                                             </div>
@@ -236,7 +257,7 @@ export default function CartIndex({ cartItems, total, auth }) {
                                     onClick={clearCart}
                                     className="text-red-600 hover:text-red-800 hover:bg-red-50"
                                 >
-                                    Clear Cart
+                                    <TransText en="Clear Cart" fr="Vider le Panier" ar="مسح السلة" />
                                 </Button>
                             </div>
                         </div>
@@ -245,28 +266,42 @@ export default function CartIndex({ cartItems, total, auth }) {
                         <div className="lg:col-span-1">
                             <Card className="sticky top-4">
                                 <CardHeader>
-                                    <CardTitle>Order Summary</CardTitle>
+                                    <CardTitle>
+                                        <TransText en="Order Summary" fr="Résumé de la Commande" ar="ملخص الطلب" />
+                                    </CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="space-y-2">
                                         <div className="flex justify-between">
-                                            <span>Subtotal</span>
+                                            <span>
+                                                <TransText en="Subtotal" fr="Sous-total" ar="المجموع الفرعي" />
+                                            </span>
                                             <span>{total.toFixed(2)} DH</span>
                                         </div>
                                         <div className="flex justify-between text-sm text-gray-600">
-                                            <span>Shipping</span>
-                                            <span>Free</span>
+                                            <span>
+                                                <TransText en="Shipping" fr="Livraison" ar="الشحن" />
+                                            </span>
+                                            <span>
+                                                <TransText en="Free" fr="Gratuit" ar="مجاني" />
+                                            </span>
                                         </div>
                                         <div className="flex justify-between text-sm text-gray-600">
-                                            <span>Tax</span>
-                                            <span>Calculated at checkout</span>
+                                            <span>
+                                                <TransText en="Tax" fr="Taxe" ar="الضريبة" />
+                                            </span>
+                                            <span>
+                                                <TransText en="Calculated at checkout" fr="Calculé à la caisse" ar="يُحسب عند الدفع" />
+                                            </span>
                                         </div>
                                     </div>
 
                                     <Separator />
 
                                     <div className="flex justify-between text-lg font-semibold">
-                                        <span>Total</span>
+                                        <span>
+                                            <TransText en="Total" fr="Total" ar="الإجمالي" />
+                                        </span>
                                         <span>{total.toFixed(2)} DH</span>
                                     </div>
 
@@ -275,12 +310,16 @@ export default function CartIndex({ cartItems, total, auth }) {
                                         size="lg"
                                         className="w-full"
                                     >
-                                        {auth.user ? 'Proceed to Checkout' : 'Login to Checkout'}
+                                        {auth.user ? (
+                                            <TransText en="Proceed to Checkout" fr="Passer à la Caisse" ar="المتابعة إلى الدفع" />
+                                        ) : (
+                                            <TransText en="Login to Checkout" fr="Se Connecter pour Payer" ar="تسجيل الدخول للدفع" />
+                                        )}
                                     </Button>
 
                                     <Link href={route('products.index')}>
                                         <Button variant="outline" size="lg" className="w-full">
-                                            Continue Shopping
+                                            <TransText en="Continue Shopping" fr="Continuer les Achats" ar="متابعة التسوق" />
                                         </Button>
                                     </Link>
                                 </CardContent>

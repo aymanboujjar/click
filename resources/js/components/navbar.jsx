@@ -3,6 +3,8 @@ import { Link, router, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
+import { useAppContext } from '@/context/appContext';
+import { TransText } from '@/components/TransText';
 import {
     ShoppingCart,
     User,
@@ -12,16 +14,24 @@ import {
     History,
     LogOut,
     Settings,
-    ChevronDown
+    ChevronDown,
+    Languages
 } from 'lucide-react';
 
 export function Navbar() {
     const { auth, flash, cartCount } = usePage().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { selectedLanguage, setSelectedLanguage } = useAppContext();
 
     const logout = () => {
         router.post(route('logout'));
     };
+
+    const languages = [
+        { code: 'en', name: 'English', flag: '🇬🇧' },
+        { code: 'fr', name: 'Français', flag: '🇫🇷' },
+        { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+    ];
 
     return (
         <nav className="bg-white shadow-sm border-b sticky top-0 z-50">
@@ -62,6 +72,30 @@ export function Navbar() {
 
                     {/* Right Side */}
                     <div className="flex items-center space-x-4">
+                        {/* Language Switcher */}
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm" className="flex items-center gap-2">
+                                    <Languages className="h-4 w-4" />
+                                    <span className="hidden sm:inline">
+                                        {languages.find(l => l.code === selectedLanguage)?.flag} {languages.find(l => l.code === selectedLanguage)?.name}
+                                    </span>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                {languages.map((lang) => (
+                                    <DropdownMenuItem
+                                        key={lang.code}
+                                        onClick={() => setSelectedLanguage(lang.code)}
+                                        className={selectedLanguage === lang.code ? 'bg-orange-50' : ''}
+                                    >
+                                        <span className="mr-2">{lang.flag}</span>
+                                        {lang.name}
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
                         {/* Cart */}
                         <Link href={route('cart.index')}>
                             <Button variant="ghost" size="sm" className="relative">
@@ -84,7 +118,7 @@ export function Navbar() {
                                     {auth.user.role === 'admin' && (
                                         <Link href={route('admin.dashboard')}>
                                             <Button variant="outline" size="sm">
-                                                Admin Panel
+                                                <TransText en="Admin Panel" fr="Panneau d'Administration" ar="لوحة التحكم" />
                                             </Button>
                                         </Link>
                                     )}
@@ -125,8 +159,12 @@ export function Navbar() {
                                                                 <History className="h-5 w-5 text-blue-600" />
                                                             </div>
                                                             <div>
-                                                                <p className="font-medium text-gray-900">Orders</p>
-                                                                <p className="text-sm text-gray-600">View your order history</p>
+                                                                <p className="font-medium text-gray-900">
+                                                                    <TransText en="Orders" fr="Commandes" ar="الطلبات" />
+                                                                </p>
+                                                                <p className="text-sm text-gray-600">
+                                                                    <TransText en="View your order history" fr="Voir votre historique de commandes" ar="عرض سجل طلباتك" />
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -161,8 +199,12 @@ export function Navbar() {
                                                                 <LogOut className="h-5 w-5 text-red-600" />
                                                             </div>
                                                             <div className="text-left">
-                                                                <p className="font-medium text-gray-900">Logout</p>
-                                                                <p className="text-sm text-gray-600">Sign out of your account</p>
+                                                                <p className="font-medium text-gray-900">
+                                                                    <TransText en="Logout" fr="Déconnexion" ar="تسجيل الخروج" />
+                                                                </p>
+                                                                <p className="text-sm text-gray-600">
+                                                                    <TransText en="Sign out of your account" fr="Déconnectez-vous de votre compte" ar="تسجيل الخروج من حسابك" />
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -176,12 +218,12 @@ export function Navbar() {
                             <div className="hidden md:flex items-center space-x-2">
                                 <Link href={route('login')}>
                                     <Button variant="ghost" size="sm">
-                                        Login
+                                        <TransText en="Login" fr="Connexion" ar="تسجيل الدخول" />
                                     </Button>
                                 </Link>
                                 <Link href={route('register')}>
                                     <Button size="sm" className="bg-orange-500 hover:bg-orange-600 text-white">
-                                        Register
+                                        <TransText en="Register" fr="S'inscrire" ar="التسجيل" />
                                     </Button>
                                 </Link>
                             </div>
@@ -232,23 +274,16 @@ export function Navbar() {
                                                 className="block py-1 text-sm text-blue-600 hover:text-blue-800"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >
-                                                Admin Panel
+                                                <TransText en="Admin Panel" fr="Panneau d'Administration" ar="لوحة التحكم" />
                                             </Link>
                                         )}
 
-                                        {/* <Link
-                                            href={route('dashboard')}
-                                            className="block py-1 text-sm text-gray-700 hover:text-blue-600"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            Dashboard
-                                        </Link> */}
                                         <Link
                                             href={route('orders.index')}
                                             className="block py-1 text-sm text-gray-700 hover:text-blue-600"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
-                                            Order History
+                                            <TransText en="Order History" fr="Historique des Commandes" ar="سجل الطلبات" />
                                         </Link>
                                         <button
                                             onClick={() => {
@@ -257,7 +292,7 @@ export function Navbar() {
                                             }}
                                             className="block py-1 text-sm text-red-600 hover:text-red-800"
                                         >
-                                            Logout
+                                            <TransText en="Logout" fr="Déconnexion" ar="تسجيل الخروج" />
                                         </button>
                                     </div>
                                 </>
@@ -268,14 +303,14 @@ export function Navbar() {
                                         className="block text-center py-2 text-gray-700 hover:text-blue-600"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
-                                        Login
+                                        <TransText en="Login" fr="Connexion" ar="تسجيل الدخول" />
                                     </Link>
                                     <Link
                                         href={route('register')}
                                         className="block text-center py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600"
                                         onClick={() => setIsMenuOpen(false)}
                                     >
-                                        Register
+                                        <TransText en="Register" fr="S'inscrire" ar="التسجيل" />
                                     </Link>
                                 </div>
                             )}

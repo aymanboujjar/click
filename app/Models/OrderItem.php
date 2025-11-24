@@ -25,6 +25,21 @@ class OrderItem extends Model
         'is_custom',
         'custom_color',
         'custom_design_path',
+        'design_position_x',
+        'design_position_y',
+        'design_scale',
+        'design_rotation',
+        'design_placement',
+        'front_design_path',
+        'front_design_position_x',
+        'front_design_position_y',
+        'front_design_scale',
+        'front_design_rotation',
+        'back_design_path',
+        'back_design_position_x',
+        'back_design_position_y',
+        'back_design_scale',
+        'back_design_rotation',
     ];
 
     /**
@@ -38,6 +53,10 @@ class OrderItem extends Model
             'quantity' => 'integer',
             'price' => 'decimal:2',
             'is_custom' => 'boolean',
+            'design_position_x' => 'decimal:2',
+            'design_position_y' => 'decimal:2',
+            'design_scale' => 'decimal:2',
+            'design_rotation' => 'integer',
         ];
     }
 

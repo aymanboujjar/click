@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -38,6 +39,13 @@ class Product extends Model
             'stock' => 'integer',
         ];
     }
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = ['image_url'];
 
     /**
      * Get the category that owns the product.
@@ -77,5 +85,24 @@ class Product extends Model
     public function getFormattedPriceAttribute(): string
     {
         return '$' . number_format($this->price, 2);
+    }
+
+    /**
+     * Get the full URL for the product image
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        // If the image path already contains http:// or https://, return as is
+        if (str_starts_with($this->image, 'http://') || str_starts_with($this->image, 'https://')) {
+            return $this->image;
+        }
+
+        // Use relative path for better compatibility
+        // This will work regardless of the domain
+        return '/storage/' . $this->image;
     }
 }

@@ -7,6 +7,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
+import { TransText } from '@/components/TransText';
 import { ShoppingCart, Filter, Star, Heart, Eye } from 'lucide-react';
 
 export default function ProductsIndex({ products, categories, filters }) {
@@ -62,19 +63,35 @@ export default function ProductsIndex({ products, categories, filters }) {
                     <div className="text-center max-w-4xl mx-auto">
                         <div className="mb-6">
                             <span className="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">
-                                🛍️ Shop & Discover
+                                🛍️ <TransText en="Shop & Discover" fr="Acheter & Découvrir" ar="تسوق واكتشف" />
                             </span>
                         </div>
 
                         <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                            Discover Amazing
-                            <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent"> Products</span>
+                            <TransText 
+                                en="Discover Amazing"
+                                fr="Découvrez des"
+                                ar="اكتشف"
+                            />
+                            <span className="bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                                {' '}<TransText en="Products" fr="Produits Incroyables" ar="منتجات رائعة" />
+                            </span>
                             <br />
-                            <span className="text-2xl md:text-3xl text-gray-700">for Every Occasion</span>
+                            <span className="text-2xl md:text-3xl text-gray-700">
+                                <TransText 
+                                    en="for Every Occasion"
+                                    fr="pour Chaque Occasion"
+                                    ar="لكل مناسبة"
+                                />
+                            </span>
                         </h1>
 
                         <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto">
-                            Shop premium quality items from our curated collection of amazing products
+                            <TransText 
+                                en="Shop premium quality items from our curated collection of amazing products"
+                                fr="Achetez des articles de qualité premium dans notre collection soigneusement sélectionnée de produits incroyables"
+                                ar="تسوق منتجات عالية الجودة من مجموعتنا المختارة بعناية من المنتجات الرائعة"
+                            />
                         </p>
 
                         {/* Action Buttons */}
@@ -83,7 +100,7 @@ export default function ProductsIndex({ products, categories, filters }) {
                                 className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
                                 onClick={() => document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' })}
                             >
-                                Browse Products
+                                <TransText en="Browse Products" fr="Parcourir les Produits" ar="تصفح المنتجات" />
                             </button>
                                                     </div>
                     </div>
@@ -123,7 +140,7 @@ export default function ProductsIndex({ products, categories, filters }) {
                                     {/* Free Shipping Badge */}
                                     <div className="absolute top-3 left-3">
                                         <Badge className="bg-green-500 text-white border-0 shadow-lg">
-                                            Free Shipping
+                                            <TransText en="Free Shipping" fr="Livraison Gratuite" ar="شحن مجاني" />
                                         </Badge>
                                     </div>
 
@@ -131,12 +148,12 @@ export default function ProductsIndex({ products, categories, filters }) {
                                     <div className="absolute top-3 right-3 flex flex-col gap-2">
                                         {product.stock <= 10 && product.stock > 0 && (
                                             <Badge variant="destructive" className="shadow-lg">
-                                                Low Stock
+                                                <TransText en="Low Stock" fr="Stock Faible" ar="مخزون منخفض" />
                                             </Badge>
                                         )}
                                         {product.stock === 0 && (
                                             <Badge variant="secondary" className="shadow-lg">
-                                                Out of Stock
+                                                <TransText en="Out of Stock" fr="Rupture de Stock" ar="نفد المخزون" />
                                             </Badge>
                                         )}
                                     </div>
@@ -183,9 +200,11 @@ export default function ProductsIndex({ products, categories, filters }) {
                                         </span>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-xs text-gray-500">Stock</p>
+                                        <p className="text-xs text-gray-500">
+                                            <TransText en="Stock" fr="Stock" ar="المخزون" />
+                                        </p>
                                         <p className={`text-sm font-medium ${product.stock <= 10 ? 'text-red-600' : 'text-green-600'}`}>
-                                            {product.stock} left
+                                            {product.stock} <TransText en="left" fr="restant" ar="متبقي" />
                                         </p>
                                     </div>
                                 </div>
@@ -207,7 +226,11 @@ export default function ProductsIndex({ products, categories, filters }) {
                                     size="lg"
                                 >
                                     <ShoppingCart className="h-4 w-4" />
-                                    {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                                    {product.stock === 0 ? (
+                                        <TransText en="Out of Stock" fr="Rupture de Stock" ar="نفد المخزون" />
+                                    ) : (
+                                        <TransText en="Add to Cart" fr="Ajouter au Panier" ar="إضافة إلى السلة" />
+                                    )}
                                 </Button>
                             </CardFooter>
                         </Card>
@@ -242,10 +265,18 @@ export default function ProductsIndex({ products, categories, filters }) {
                     <div className="text-center py-12 px-4 md:px-0">
                         <div className="max-w-md mx-auto">
                             <div className="text-6xl mb-4">🔍</div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
-                            <p className="text-gray-500 mb-6">We couldn't find any products matching your criteria. Try adjusting your filters.</p>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                <TransText en="No products found" fr="Aucun produit trouvé" ar="لم يتم العثور على منتجات" />
+                            </h3>
+                            <p className="text-gray-500 mb-6">
+                                <TransText 
+                                    en="We couldn't find any products matching your criteria. Try adjusting your filters."
+                                    fr="Nous n'avons trouvé aucun produit correspondant à vos critères. Essayez d'ajuster vos filtres."
+                                    ar="لم نتمكن من العثور على أي منتجات تطابق معاييرك. جرب تعديل المرشحات الخاصة بك."
+                                />
+                            </p>
                             <Button onClick={clearFilters} className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                                Clear All Filters
+                                <TransText en="Clear All Filters" fr="Effacer Tous les Filtres" ar="مسح جميع المرشحات" />
                             </Button>
                         </div>
                     </div>

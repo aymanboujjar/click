@@ -168,18 +168,29 @@ export default function AdminProductsIndex({ products, categories, filters }) {
                                             <tr key={product.id} className="border-b hover:bg-gray-50">
                                                 <td className="py-4 px-4">
                                                     <div className="flex items-center gap-3">
-                                                        <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                                                            {product.image ? (
+                                                        <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                                            {product.image_url || product.image ? (
                                                                 <img
-                                                                    src={`/storage/${product.image}`}
+                                                                    src={product.image_url || `/storage/${product.image}`}
                                                                     alt={product.name}
                                                                     className="w-full h-full object-cover"
+                                                                    onError={(e) => {
+                                                                        // Hide image and show placeholder on error
+                                                                        const container = e.target.parentElement;
+                                                                        e.target.style.display = 'none';
+                                                                        const placeholder = container.querySelector('.image-placeholder');
+                                                                        if (placeholder) {
+                                                                            placeholder.style.display = 'flex';
+                                                                        }
+                                                                    }}
                                                                 />
-                                                            ) : (
-                                                                <div className="w-full h-full flex items-center justify-center text-gray-400">
-                                                                    📷
-                                                                </div>
-                                                            )}
+                                                            ) : null}
+                                                            <div 
+                                                                className="image-placeholder w-full h-full flex items-center justify-center text-gray-400 absolute inset-0"
+                                                                style={{ display: (product.image_url || product.image) ? 'none' : 'flex' }}
+                                                            >
+                                                                📷
+                                                            </div>
                                                         </div>
                                                         <div>
                                                             <p className="font-medium">{product.name}</p>

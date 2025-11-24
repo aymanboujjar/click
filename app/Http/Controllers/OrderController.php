@@ -138,7 +138,42 @@ class OrderController extends Controller
 
                 if ($isCustom) {
                     $orderItemData['custom_color'] = $cartItem->custom_color;
-                    $orderItemData['custom_design_path'] = $cartItem->custom_design_path;
+                    $orderItemData['custom_design_path'] = $cartItem->custom_design_path ?? null;
+                    
+                    // Include front design if it exists
+                    if (isset($cartItem->front_design_path)) {
+                        $orderItemData['front_design_path'] = $cartItem->front_design_path;
+                        $orderItemData['front_design_position_x'] = $cartItem->front_design_position_x ?? 50;
+                        $orderItemData['front_design_position_y'] = $cartItem->front_design_position_y ?? 50;
+                        $orderItemData['front_design_scale'] = $cartItem->front_design_scale ?? 50;
+                        $orderItemData['front_design_rotation'] = $cartItem->front_design_rotation ?? 0;
+                    }
+                    
+                    // Include back design if it exists
+                    if (isset($cartItem->back_design_path)) {
+                        $orderItemData['back_design_path'] = $cartItem->back_design_path;
+                        $orderItemData['back_design_position_x'] = $cartItem->back_design_position_x ?? 50;
+                        $orderItemData['back_design_position_y'] = $cartItem->back_design_position_y ?? 50;
+                        $orderItemData['back_design_scale'] = $cartItem->back_design_scale ?? 50;
+                        $orderItemData['back_design_rotation'] = $cartItem->back_design_rotation ?? 0;
+                    }
+                    
+                    // Legacy support - include old design adjustments if they exist (for backward compatibility)
+                    if (isset($cartItem->design_position_x)) {
+                        $orderItemData['design_position_x'] = $cartItem->design_position_x;
+                    }
+                    if (isset($cartItem->design_position_y)) {
+                        $orderItemData['design_position_y'] = $cartItem->design_position_y;
+                    }
+                    if (isset($cartItem->design_scale)) {
+                        $orderItemData['design_scale'] = $cartItem->design_scale;
+                    }
+                    if (isset($cartItem->design_rotation)) {
+                        $orderItemData['design_rotation'] = $cartItem->design_rotation;
+                    }
+                    if (isset($cartItem->design_placement)) {
+                        $orderItemData['design_placement'] = $cartItem->design_placement;
+                    }
                 }
 
                 OrderItem::create($orderItemData);
@@ -203,6 +238,21 @@ class OrderController extends Controller
                         'custom_design_path' => $item['custom_design_path'] ?? null,
                         'custom_price' => $item['custom_price'] ?? null,
                         'tshirt_image' => $item['tshirt_image'] ?? null,
+                        'design_position_x' => $item['design_position_x'] ?? null,
+                        'design_position_y' => $item['design_position_y'] ?? null,
+                        'design_scale' => $item['design_scale'] ?? null,
+                        'design_rotation' => $item['design_rotation'] ?? null,
+                        'design_placement' => $item['design_placement'] ?? null,
+                        'front_design_path' => $item['front_design_path'] ?? null,
+                        'front_design_position_x' => $item['front_design_position_x'] ?? null,
+                        'front_design_position_y' => $item['front_design_position_y'] ?? null,
+                        'front_design_scale' => $item['front_design_scale'] ?? null,
+                        'front_design_rotation' => $item['front_design_rotation'] ?? null,
+                        'back_design_path' => $item['back_design_path'] ?? null,
+                        'back_design_position_x' => $item['back_design_position_x'] ?? null,
+                        'back_design_position_y' => $item['back_design_position_y'] ?? null,
+                        'back_design_scale' => $item['back_design_scale'] ?? null,
+                        'back_design_rotation' => $item['back_design_rotation'] ?? null,
                     ];
 
                     $cartItems->push($cartItem);

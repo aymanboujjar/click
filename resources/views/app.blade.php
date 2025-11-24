@@ -11,6 +11,8 @@
             }
         </style>
 
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <link rel="icon" href="/images/Picsart_25-06-27_11-57-09-084.png" type="image/png">
