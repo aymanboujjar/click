@@ -12,8 +12,8 @@ abstract class Controller
      */
     protected function syncStorageFiles()
     {
-        $source = 'clicktee/public_html/click/storage/app/public';
-        $destination = 'clicktee/public_html/storage';
+        $source = '/home/clicktee/public_html/click/storage/app/public';
+        $destination = '/home/clicktee/public_html/storage';
 
         if (!File::exists($source)) {
             return 'Source folder does not exist.';

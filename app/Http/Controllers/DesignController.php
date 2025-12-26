@@ -60,6 +60,11 @@ class DesignController extends Controller
             $backDesignPath = $request->file('back_design')->store('custom-designs', 'public');
         }
 
+        // Sync storage files after image upload(s)
+        if ($frontDesignPath || $backDesignPath) {
+            $this->syncStorageFiles();
+        }
+
         // Find or create a base t-shirt product (we'll use this as reference)
         $baseProduct = Product::where('name', 'Custom T-Shirt')->first();
         if (!$baseProduct) {
